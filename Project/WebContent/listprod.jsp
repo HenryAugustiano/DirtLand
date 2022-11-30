@@ -1,0 +1,320 @@
+<%@ page import="java.sql.*,java.net.URLEncoder" %>
+<%@ page import="java.text.NumberFormat" %>
+<%@ page import="java.util.Locale" %>
+<%@ include file="jdbc.jsp" %>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
+<title>Jo's Products</title>
+</head>
+<body style="background-color:#FFFDD0">
+
+<div class="topnav">
+  <a href="index.jsp">Homepage</a>
+  <a href="listorder.jsp">Order List</a>
+  <a href="showcart.jsp">Cart</a>
+</div>
+<br>
+<div id="slideshow">
+        <div class="slide-wrapper">
+            <div class="slide">
+                <h1 class="slide-number">
+                    <img src="ss1.png" alt="img1">
+                </h1>
+            </div>
+            <div class="slide">
+                <h1 class="slide-number">
+                    <img src="ss2.png" alt="img2">
+                </h1>
+            </div>
+            <div class="slide">
+                <h1 class="slide-number">
+                    <img src="ss3.png" alt="img3">
+                </h1>
+            </div>
+        </div>
+    </div>
+
+<div class="text-c">
+<h2 style="text-c">Search for the products you want to buy:</h2>
+
+<form method="get" action="listprod.jsp">
+<select name="category" id="category">
+	<option value="all">All</option>
+	<option value="Beverages">Beverages</option>
+	<option value="Condiments">Condiments</option>
+	<option value="Dairy Products">Dairy Products</option>
+	<option value="Produce">Produce</option>
+	<option value="Meat/Poultry">Meat/Poultry</option>
+	<option value="Seafood">Seafood</option>
+	<option value="Confections">Confections</option>
+	<option value="Grains/Cereals">Grains/Cereals</option>
+</select>
+<input type="text" name="productName" size="30">
+<input type="submit" value="Submit"><input type="reset" value="Reset"> (Leave blank for all products)
+</form>
+</div>
+
+<% // Get product name to search for
+String name = request.getParameter("productName");
+if(name == null) {
+	name = "";
+}
+
+String cat = request.getParameter("category");
+if(cat == null) {
+	cat = "all";
+}
+
+//Note: Forces loading of SQL Server driver
+try {	// Load driver class
+	Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+}
+catch (java.lang.ClassNotFoundException e) {
+	out.println("ClassNotFoundException: " +e);
+}
+
+// Variable name now contains the search string the user entered
+// Use it to build a query and print out the resultset.  Make sure to use PreparedStatement!
+
+// Make the connection
+NumberFormat currFormat = NumberFormat.getCurrencyInstance(Locale.CANADA);
+getConnection();
+
+int count = 1;
+String temp="", png=".png", i="";
+
+%>
+<style> 
+	.styled-table {
+		border-collapse: collapse;
+		margin: 25px 0;
+		font-size: 0.9em;
+		font-family: sans-serif;
+		min-width: 400px;
+		box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+	}
+
+	.styled-table thead tr {
+		background-color: #009879;
+		color: #ffffff;
+		text-align: center;
+	}
+
+	.styled-table th,
+	.styled-table td {
+		padding: 12px 15px;
+	}
+	.styled-table tbody tr {
+		border-bottom: 1px solid #dddddd;
+	}
+
+	.styled-table tbody tr:nth-of-type(even) {
+		background-color: #f3f3f3;
+	}
+
+	.styled-table tbody tr:last-of-type {
+		border-bottom: 2px solid #009879;
+	}
+
+	.styled-table tbody tr.active-row {
+		font-weight: bold;
+		color: #009879;
+	}
+
+	.text-c {
+		text-align: center;
+	}
+
+	.topnav {
+		background-color: #333;
+		overflow: hidden;
+	}
+
+	.topnav a {
+		float: left;
+		color: #f2f2f2;
+		text-align: center;
+		padding: 14px 16px;
+		text-decoration: none;
+		font-size: 17px;
+	}
+
+	.topnav a:hover {
+		background-color: #ddd;
+		color: black;
+	}
+
+	.topnav a.active {
+		background-color: #04AA6D;
+		color: white;
+	}
+ 
+	#slideshow {
+		overflow: hidden;
+		height: 510px;
+		width: 728px;
+		margin: 0 auto;
+	}
+
+	.slide {
+		float: left;
+		height: 510px;
+		width: 728px;
+	}
+
+	.slide-wrapper {
+		width: calc(728px * 4);
+		animation: slide 15s ease infinite;
+	}
+	
+	@keyframes slide {
+	20% {
+		margin-left: 0px;
+	}
+	
+	40% {
+		margin-left: calc(-728px * 1);
+	}
+	
+	60% {
+		margin-left: calc(-728px * 2);
+	}
+	}
+	.floating {
+		position: fixed;
+		width: 60px;
+		height: 60px;
+		bottom: 40px;
+		right: 40px;
+		background-color: #25d366;
+		color: #fff;
+		border-radius: 50px;
+		text-align: center;
+		font-size: 30px;
+		box-shadow: 2px 2px 3px #999;
+		z-index: 100;
+	}
+
+	.fab-icon {
+		margin-top: 16px;
+	}
+	
+	.fonticon {
+		padding-top: 11px;
+	}
+</style>
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" />
+
+<a href="mailto:test@gmail.com" class="floating" target="_blank">
+<div class="fonticon">
+	<i class="fa fa-envelope" aria-hidden="true"></i>
+</div>
+</a>
+<%
+
+PreparedStatement pstmt = null;
+
+if(!cat.equals("all")){
+	String sql = "SELECT productId, productName, categoryName, productPrice " +
+				"FROM product INNER JOIN category ON product.categoryId = category.categoryId " +
+				"WHERE categoryName = ? AND productName LIKE ?";
+	pstmt = con.prepareStatement(sql);
+	pstmt.setString(1, cat);
+	pstmt.setString(2,"%"+name+"%");
+} else{
+	String sql = "SELECT productId, productName, categoryName, productPrice " +
+				"FROM product JOIN category ON product.categoryId = category.categoryId " +
+				"WHERE productName LIKE ?";
+	pstmt = con.prepareStatement(sql);
+	pstmt.setString(1,"%"+name+"%");
+}
+ResultSet rst = pstmt.executeQuery();
+
+if(name.equals("") && cat.equals("all")) {
+	%>
+	<h2 style="text-align:center;font-family: Futura;">All Products</h2>
+	<%
+}else if(!name.equals("") && cat.equals("all")) {
+	%>
+	<h2 style="text-align:center;font-family: Futura;">Products containing '<%=name%>'</h2>
+	<%
+}else if(name.equals("") && !cat.equals("all")) {
+	%>
+	<h2 style="text-align:center;font-family: Futura;">Products with category <%=cat%></h2>
+	<%
+}else if(!name.equals("") && !cat.equals("all")) {
+	%>
+	<h2 style="text-align:center;font-family: Futura;">Products containing '<%=name%>' with category <%=cat%></h2>
+	<%
+}
+
+%>
+<table class="styled-table"; border="1" style="border-collapse:collapse;margin-left:auto;margin-right:auto;font-family: Futura;">
+	<thead>
+		<tr>
+			<th></th>
+			<th>Product Name</th>
+			<th>Product Picture</th>
+			<th>Category</th>
+			<th>Price</th>
+		</tr>
+	</thead>
+<%
+
+// For each product create a link of the form
+// addcart.jsp?id=productId&name=productName&price=productPrice
+// Print out the ResultSet
+
+
+while(rst.next()) {
+	String prodName = rst.getString("productName");
+	String prodNameLink = "";
+	if(prodName.contains(" ")) {
+		prodNameLink = prodName.replaceAll(" ","%20");
+	}else {
+		prodNameLink = prodName;
+	}
+	String addCart = "addcart.jsp?id=" + rst.getInt("productId") + "&name=" + prodNameLink + "&price=" + rst.getDouble("productPrice");
+	String prod = "product.jsp?id=" + rst.getInt("productId");
+	String col = "", c = rst.getString("categoryName");
+	if(c.equals("Beverages")) col = "0000FF";
+	else if(c.equals("Condiments")) col = "FF0000";
+	else if(c.equals("Produce")) col = "00CC00";
+	else if(c.equals("Seafood")) col = "FF66CC";
+	else if(c.equals("Dairy Products")) col = "6600CC";
+	else if(c.equals("Confections")) col = "000000";
+	else if(c.equals("Meat/Poultry")) col = "FF9900";
+	else if(c.equals("Grains/Cereals")) col = "55A5B3";
+
+	for(int j=1;j<30;j++){
+		if(rst.getInt("productId")==j) 
+			i = Integer.toString(j) + ".png";
+	}
+	
+	%>		
+		<tr>
+			<td><a href=<%=addCart%>>Add To Cart</a></td>
+			<td><a href=<%=prod%>><%=rst.getString("productName")%></a></font></td>
+			<td><font color=<%=col%>><%=rst.getString("categoryName")%></font></td>
+			<td><img src=<%=i%> alt="ads" width="65" height="80"></td>
+			<td><font color=<%=col%>><%=currFormat.format(rst.getDouble("productPrice"))%></font></td>
+		</tr>
+	<%
+}
+
+// Close connection
+closeConnection();
+
+// Useful code for formatting currency values:
+// NumberFormat currFormat = NumberFormat.getCurrencyInstance();
+// out.println(currFormat.format(5.0);	// Prints $5.00
+%>
+	</tbody>
+</table>
+</body>
+</html>
