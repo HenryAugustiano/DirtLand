@@ -15,24 +15,17 @@
         .centered {
             position: fixed;
             top: 50%;
-            left: 50%;
+            left: 75%;
             transform: translate(-50%, -50%);
         }
 
-
-body {
-        background-image: url('img/bg.jpg');
+        body {
+        background-image: url('DirtLand.png');
         background-repeat: no-repeat;
-        background-attachment: fixed; 
-        background-size: cover;
-        position: absolute;
-        left: 0px;
-        top: 0px;
-}
+        }
 </style>
-
 <div class="centered">
-<h1 style="text-align:center"><span class="badge badge-pill badge-warning">&#10024; Welcome to Jo's Grocery &#10024;</span></h1>
+<h1 style="text-align:center"><span class="badge badge-pill badge-warning">&#10024; Welcome to Dirt Land &#10024;</span></h1>
 </br></br>
 
 <h2 align="center"><span class="badge badge-pill badge-light"><a href="login.jsp">Login</a></span></h2>
