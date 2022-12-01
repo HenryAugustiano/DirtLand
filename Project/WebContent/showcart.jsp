@@ -4,13 +4,48 @@
 <%@ page import="java.text.NumberFormat" %>
 <%@ page import="java.util.Map" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF8"%>
+<%@ include file="navBar.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
 <title>Your Shopping Cart</title>
 </head>
 <body style="background-color:#FFFDD0;">
+<style> 
+	.topnav {
+			background-color: #333;
+			overflow: hidden;
+	}
 
+	.topnav a {
+		float: left;
+		color: #f2f2f2;
+		text-align: center;
+		padding: 14px 16px;
+		text-decoration: none;
+		font-size: 17px;
+	}
+
+	.topnav a:hover {
+		background-color: #ddd;
+		color: black;
+	}
+
+	.topnav a.active {
+		background-color: #04AA6D;
+		color: white;
+	}
+	
+	.topnav p {
+		float: right;
+		color: #f2f2f2;
+		text-align: center;
+		padding: 10px 10px;
+		text-decoration: none;
+		font-size: 17px;
+		margin:0;
+	}
+</style>
 <%
 // Get the current list of products
 @SuppressWarnings({"unchecked"})
