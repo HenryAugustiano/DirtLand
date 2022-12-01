@@ -7,7 +7,7 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
-        <title>Jo's Grocery Main Page</title>
+        <title>Dirt Land Main Page</title>
 </head>
 <body>
 <style>
@@ -44,6 +44,16 @@
 <br>
 <br>
 <h2 align="center"><span class="badge badge-pill badge-light"> <a href="tel:1234567"> Call Our Customer Service</a></span></h2>
+
+<div id="google_translate_element"></div>
+
+<script type="text/javascript">
+function googleTranslateElementInit() {
+  new google.translate.TranslateElement({pageLanguage: 'en'}, 'google_translate_element');
+}
+</script>
+
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
 </div>
 <!-- Bootstrap JS -->

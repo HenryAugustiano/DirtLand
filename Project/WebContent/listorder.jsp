@@ -7,7 +7,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Jo's Order List</title>
+<title>Dirt Land Order List</title>
 </head>
 <body style="background-color:#FFFDD0">
 
