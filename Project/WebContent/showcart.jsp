@@ -17,7 +17,7 @@
 HashMap<String, ArrayList<Object>> productList = (HashMap<String, ArrayList<Object>>) session.getAttribute("productList");
 
 if (productList == null)
-{	out.println("<H1>Your shopping cart is empty!</H1>");
+{	out.println("<H1>Your don't have any item in the cart</H1>");
 	productList = new HashMap<String, ArrayList<Object>>();
 }
 else
@@ -74,7 +74,7 @@ else
 			+"<td align=\"right\">"+currFormat.format(total)+"</td></tr>");
 	out.println("</table>");
 
-	out.println("<h2><a href=\"checkout.jsp\">Check Out</a></h2>");
+	out.println("<h2><a href=\"order.jsp\">Check Out</a></h2>");
 }
 %>
 

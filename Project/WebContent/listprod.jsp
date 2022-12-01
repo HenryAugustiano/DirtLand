@@ -3,6 +3,8 @@
 <%@ page import="java.util.Locale" %>
 <%@ include file="jdbc.jsp" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF8"%>
+<%-- navbar --%>
+<%@ include file="navBar.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,11 +13,6 @@
 </head>
 <body style="background-color:#FFFDD0">
 
-<div class="topnav">
-  <a href="index.jsp">Homepage</a>
-  <a href="listorder.jsp">Order List</a>
-  <a href="showcart.jsp">Cart</a>
-</div>
 <br>
 <div id="slideshow">
         <div class="slide-wrapper">
@@ -43,14 +40,12 @@
 <form method="get" action="listprod.jsp">
 <select name="category" id="category">
 	<option value="all">All</option>
-	<option value="Beverages">Beverages</option>
-	<option value="Condiments">Condiments</option>
-	<option value="Dairy Products">Dairy Products</option>
-	<option value="Produce">Produce</option>
-	<option value="Meat/Poultry">Meat/Poultry</option>
-	<option value="Seafood">Seafood</option>
-	<option value="Confections">Confections</option>
-	<option value="Grains/Cereals">Grains/Cereals</option>
+	<option value="Clay Soils">Clay Soils</option>
+	<option value="Loamy Soils">Loamy Soils</option>
+	<option value="Chalky Soils">Chalky Soils</option>
+	<option value="Silty Soils">Chalky Soils</option>
+	<option value="Peaty Soils">Peaty Soils</option>
+	<option value="Sandy Soils">Sandy Soils</option>
 </select>
 <input type="text" name="productName" size="30">
 <input type="submit" value="Submit"><input type="reset" value="Reset"> (Leave blank for all products)
@@ -141,6 +136,16 @@ String temp="", png=".png", i="";
 		text-decoration: none;
 		font-size: 17px;
 	}
+	
+	.topnav p {
+		float: right;
+		color: #f2f2f2;
+		text-align: center;
+		padding: 10px 10px;
+		text-decoration: none;
+		font-size: 17px;
+		margin:0;
+	}
 
 	.topnav a:hover {
 		background-color: #ddd;
@@ -151,7 +156,7 @@ String temp="", png=".png", i="";
 		background-color: #04AA6D;
 		color: white;
 	}
- 
+	
 	#slideshow {
 		overflow: hidden;
 		height: 510px;
@@ -210,9 +215,8 @@ String temp="", png=".png", i="";
 <link rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" />
 
-<a href="mailto:test@gmail.com" class="floating" target="_blank">
-<div class="fonticon">
-	<i class="fa fa-envelope" aria-hidden="true"></i>
+<a href="https://wa.me/12508996062?text=Hi I would like to ask about your product!" class="floating" target="_blank">
+<i class="fab fa-whatsapp fab-icon"></i>
 </div>
 </a>
 <%

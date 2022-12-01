@@ -3,18 +3,13 @@
 <%@ page import="java.util.Locale" %>
 <%@ include file="jdbc.jsp" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF8"%>
+<%@ include file="navBar.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
 <title>Jo's Order List</title>
 </head>
 <body style="background-color:#FFFDD0">
-
-<div class="topnav">
-  <a href="index.jsp">Homepage</a>
-  <a href="listprod.jsp">Product List</a>
-  <a href="showcart.jsp">Cart</a>
-</div>
 
 <h1 style="text-align:center;font-family: Futura;">Order List</h1>
 <br>
@@ -77,6 +72,16 @@
 	.topnav a.active {
 		background-color: #04AA6D;
 		color: white;
+	}
+	
+	.topnav p {
+		float: right;
+		color: #f2f2f2;
+		text-align: center;
+		padding: 10px 10px;
+		text-decoration: none;
+		font-size: 17px;
+		margin:0;
 	}
 
 	.floating {

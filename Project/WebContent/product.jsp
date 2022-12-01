@@ -4,20 +4,52 @@
 <%@ page import="java.io.File" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF8"%>
 <%@ include file="jdbc.jsp" %>
-
+<%@ include file="navBar.jsp" %>
 <html>
 <head>
 <title>Ray's Grocery - Product Information</title>
 <link href="css/bootstrap.min.css" rel="stylesheet">
 </head>
-<body>
+<body style="background-color:#FFFDD0;">
 
-<%@ include file="header.jsp" %>
 
 <style>
 .text-c {
 		text-align: center;
 	}
+	.topnav {
+		background-color: #333;
+		overflow: hidden;
+	}
+
+	.topnav a {
+		float: left;
+		color: #f2f2f2;
+		text-align: center;
+		padding: 14px 16px;
+		text-decoration: none;
+		font-size: 17px;
+	}
+	
+	.topnav p {
+		float: right;
+		color: #f2f2f2;
+		text-align: center;
+		padding: 10px 10px;
+		text-decoration: none;
+		font-size: 17px;
+		margin:0;
+	}
+
+	.topnav a:hover {
+		background-color: #ddd;
+		color: black;
+	}
+
+	.topnav a.active {
+		background-color: #04AA6D;
+		color: white;
+	}	
 </style>
 
 <%
@@ -53,7 +85,7 @@ if(imagePath != null) {
 // TODO: Retrieve any image stored directly in database. Note: Call displayImage.jsp with product id as parameter.
 String displayImgDatabase = "displayImage.jsp?id=" + prodId;
 %>
-<img src="<%=displayImgDatabase%>"  style="margin-left:auto; margin-right:auto; display:block; border:3px solid black;">
+<img src="<%=displayImgDatabase%>" onerror="this.remove();"  style="margin-left:auto; margin-right:auto; display:block; border:3px solid black; ">
 <b>Id: </b>
 <%=p%><br>
 <b>Price: </b>

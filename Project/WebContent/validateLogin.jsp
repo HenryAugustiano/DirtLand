@@ -23,7 +23,7 @@
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
 		String retStr = null;
-
+		String pwd = null;
 		if(username == null || password == null)
 				return null;
 		if((username.length() == 0) || (password.length() == 0))
@@ -46,6 +46,7 @@
 
 			if (pass.equals(password) && userid.equals(username)) {
 				retStr = username;
+				pwd = pass;
 			}
 			else {
 				retStr = null;
@@ -67,6 +68,7 @@
 		if(retStr != null)
 		{	session.removeAttribute("loginMessage");
 			session.setAttribute("authenticatedUser",username);
+			session.setAttribute("password",pwd);
 		}
 		else
 			session.setAttribute("loginMessage","Could not connect to the system using that username/password.");

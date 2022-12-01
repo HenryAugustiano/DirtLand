@@ -8,6 +8,9 @@
 <%@ page import="java.util.Date" %>
 <%@ include file="jdbc.jsp" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF8"%>
+<%-- to request authentication --%>
+<%@ include file="auth.jsp" %>  
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -95,7 +98,6 @@ try {
 					insertProduct.executeUpdate();
 					totalOrderCost += (pr*qty);
 				}
-	
 				// Update total amount for order record
 				String updateTotalAmount = "UPDATE ordersummary SET totalAmount = ? WHERE orderId = ?";
 				PreparedStatement updateAmount = con.prepareStatement(updateTotalAmount);
