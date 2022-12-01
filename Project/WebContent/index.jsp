@@ -45,7 +45,7 @@ body {
 
 <h2 align="center"><span class="badge badge-pill badge-light"> <a href="customer.jsp">Customer Info</a></span></h2>
 
-<h2 align="center"><span class="badge badge-pill badge-light"> <a href="admin.jsp">Administrators</a></span></h2>
+<h2 align="center"><span class="badge badge-pill badge-light"> <a href="adminLogin.jsp">Administrators</a></span></h2>
 
 <h2 align="center"><span class="badge badge-pill badge-light"> <a href="logout.jsp">Log out</a></span></h2>
 <br>
