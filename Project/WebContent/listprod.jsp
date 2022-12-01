@@ -18,17 +18,17 @@
         <div class="slide-wrapper">
             <div class="slide">
                 <h1 class="slide-number">
-                    <img src="ss1.png" alt="img1">
+                    <img src="img/1.jpg" alt="img1" width="700" height="500">
                 </h1>
             </div>
             <div class="slide">
                 <h1 class="slide-number">
-                    <img src="ss2.png" alt="img2">
+                    <img src="img/10.jpg" alt="img2" width="700" height="500">
                 </h1>
             </div>
             <div class="slide">
                 <h1 class="slide-number">
-                    <img src="ss3.png" alt="img3">
+                    <img src="img/16.jpg" alt="img3"width="700" height="500">
                 </h1>
             </div>
         </div>
@@ -295,9 +295,9 @@ while(rst.next()) {
 	else if(c.equals("Meat/Poultry")) col = "FF9900";
 	else if(c.equals("Grains/Cereals")) col = "55A5B3";
 
-	for(int j=1;j<30;j++){
+	for(int j=1;j<17;j++){
 		if(rst.getInt("productId")==j) 
-			i = Integer.toString(j) + ".png";
+			i = "img/" + Integer.toString(j) + ".jpg";
 	}
 	
 	%>		
@@ -305,7 +305,7 @@ while(rst.next()) {
 			<td><a href=<%=addCart%>>Add To Cart</a></td>
 			<td><a href=<%=prod%>><%=rst.getString("productName")%></a></font></td>
 			<td><font color=<%=col%>><%=rst.getString("categoryName")%></font></td>
-			<td><img src=<%=i%> alt="ads" width="65" height="80"></td>
+			<td><img src=<%=i%> alt="ads" width="100" height="80"></td>
 			<td><font color=<%=col%>><%=currFormat.format(rst.getDouble("productPrice"))%></font></td>
 		</tr>
 	<%
