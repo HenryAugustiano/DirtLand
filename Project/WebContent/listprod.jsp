@@ -10,14 +10,14 @@
 <head>
 <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
 <link rel="stylesheet" type="text/css" href="./style.css" />
-<title>Dirt Land Products</title>
+<title>Jo's Products</title>
 </head>
 <body style="background-color:#FFFDD0">
-
 <br>
+<div class = "text-c">
 <div id="slideshow">
-         <div class="slide-wrapper">
-             <div class="slide">
+        <div class="slide-wrapper">
+            <div class="slide">
                 <h1 class="slide-number">
                     <img src="img/1.jpg" alt="img1" width="600" height="400">
                 </h1>
@@ -42,6 +42,7 @@
 <form method="get" action="listprod.jsp">
 <select name="category" id="category">
 	<option value="all">All</option>
+	<option value="Recommended">Recommended Products</option>
 	<option value="Clay Soils">Clay Soils</option>
 	<option value="Loamy Soils">Loamy Soils</option>
 	<option value="Chalky Soils">Chalky Soils</option>
@@ -80,19 +81,21 @@ catch (java.lang.ClassNotFoundException e) {
 NumberFormat currFormat = NumberFormat.getCurrencyInstance(Locale.CANADA);
 getConnection();
 
+String i="";
+
 %>
 <style> 
 	#slideshow {
 		overflow: hidden;
 		height: 450px;
- 		width: 658px;
+		width: 658px;
 		margin: 0 auto;
 	}
 
 	.slide {
 		float: left;
 		height: 450px;
- 		width: 658px;
+		width: 658px;
 	}
 
 	.slide-wrapper {
@@ -113,20 +116,6 @@ getConnection();
 		margin-left: calc(-658px * 2);
 	}
 	}
-	.floating {
-		position: fixed;
-		width: 60px;
-		height: 60px;
-		bottom: 40px;
-		right: 40px;
-		background-color: #25d366;
-		color: #fff;
-		border-radius: 50px;
-		text-align: center;
-		font-size: 30px;
-		box-shadow: 2px 2px 3px #999;
-		z-index: 100;
-	}
 </style>
 
 <link rel="stylesheet"
@@ -140,19 +129,31 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css
 
 PreparedStatement pstmt = null;
 
-if(!cat.equals("all")){
-	String sql = "SELECT productId, productName, categoryName, productPrice " +
+if(cat.equals("all")){
+	String sql = "SELECT productId, productName, categoryName, productImageURL, productPrice " +
+				"FROM product JOIN category ON product.categoryId = category.categoryId " +
+				"WHERE productName LIKE ?";
+	pstmt = con.prepareStatement(sql);
+	pstmt.setString(1,"%"+name+"%");
+} else if(cat.equals("Recommended")){
+	String sql = "SELECT TOP 3 product.productId, productName, productImageURL, productPrice, userid, SUM(quantity) AS totalQty " +
+				"FROM orderproduct LEFT JOIN product ON orderproduct.productId = product.productId " +
+				"INNER JOIN ordersummary ON ordersummary.orderId = orderproduct.orderId " +
+				"INNER JOIN customer ON customer.customerId = ordersummary.customerId " +
+				"WHERE userid = ? AND productName LIKE ? " + 
+				"GROUP BY product.productId, productName, productImageURL, productPrice, userid " +
+                "ORDER BY totalQty DESC";
+	String uid = (String)session.getAttribute("authenticatedUser");
+	pstmt = con.prepareStatement(sql);
+	pstmt.setString(1, uid);
+	pstmt.setString(2,"%"+name+"%");
+} else{
+	String sql = "SELECT productId, productName, categoryName, productImageURL, productPrice " +
 				"FROM product INNER JOIN category ON product.categoryId = category.categoryId " +
 				"WHERE categoryName = ? AND productName LIKE ?";
 	pstmt = con.prepareStatement(sql);
 	pstmt.setString(1, cat);
 	pstmt.setString(2,"%"+name+"%");
-} else{
-	String sql = "SELECT productId, productName, categoryName, productImageURL, productPrice " +
- 				"FROM product JOIN category ON product.categoryId = category.categoryId " +
- 				"WHERE productName LIKE ?";
-	pstmt = con.prepareStatement(sql);
-	pstmt.setString(1,"%"+name+"%");
 }
 ResultSet rst = pstmt.executeQuery();
 
@@ -164,16 +165,65 @@ if(name.equals("") && cat.equals("all")) {
 	%>
 	<h2 style="text-align:center;font-family: Futura;">Products containing '<%=name%>'</h2>
 	<%
-}else if(name.equals("") && !cat.equals("all")) {
+}else if(name.equals("") && !cat.equals("all") && !cat.equals("Recommended")) {
 	%>
 	<h2 style="text-align:center;font-family: Futura;">Products with category <%=cat%></h2>
 	<%
-}else if(!name.equals("") && !cat.equals("all")) {
+}else if(!name.equals("") && cat.equals("Recommended")) {
+	%>
+	<h2 style="text-align:center;font-family: Futura;">Recommended products based on previous purchases containing '<%=name%>'</h2>
+	<%
+}else if(name.equals("") && cat.equals("Recommended")) {
+	%>
+	<h2 style="text-align:center;font-family: Futura;">All recommended products based on previous purchases</h2>
+	<%
+}else if(!name.equals("") && !cat.equals("all") && !cat.equals("Recommended")) {
 	%>
 	<h2 style="text-align:center;font-family: Futura;">Products containing '<%=name%>' with category <%=cat%></h2>
 	<%
 }
 
+if(cat.equals("Recommended")){
+	%>
+<table class="styled-table"; border="1" style="border-collapse:collapse;margin-left:auto;margin-right:auto;font-family: Futura;">
+	<thead>
+		<tr>
+			<th></th>
+			<th>Product Name</th>
+			<th>Product Picture</th>
+			<th>Price</th>
+			<th>Quantity Ordered</th>
+		</tr>
+	</thead>
+<%
+
+// For each product create a link of the form
+// addcart.jsp?id=productId&name=productName&price=productPrice
+// Print out the ResultSet
+
+
+while(rst.next()) {
+	String prodName = rst.getString("productName");
+	String prodNameLink = "";
+	if(prodName.contains(" ")) {
+		prodNameLink = prodName.replaceAll(" ","%20");
+	}else {
+		prodNameLink = prodName;
+	}
+	String addCart = "addcart.jsp?id=" + rst.getInt("productId") + "&name=" + prodNameLink + "&price=" + rst.getDouble("productPrice");
+	String prod = "product.jsp?id=" + rst.getInt("productId");
+	
+	%>		
+		<tr>
+			<td><a href=<%=addCart%>>Add To Cart</a></td>
+			<td><a href=<%=prod%>><%=rst.getString("productName")%></a></font></td>
+			<td><img src=<%=rst.getString("productImageURL")%> alt = "Product Image" width="100" height="70"></td>
+			<td><%=currFormat.format(rst.getDouble("productPrice"))%></td>
+			<td><%=rst.getInt("totalQty")%></font></td>
+		</tr>
+	<%	
+	}
+}else{
 %>
 <table class="styled-table"; border="1" style="border-collapse:collapse;margin-left:auto;margin-right:auto;font-family: Futura;">
 	<thead>
@@ -204,11 +254,12 @@ while(rst.next()) {
 	String prod = "product.jsp?id=" + rst.getInt("productId");
 	String col = "", c = rst.getString("categoryName");
 	if(c.equals("Loamy Soils")) col = "0000FF";
- 	else if(c.equals("Clay Soils")) col = "FF0000";
- 	else if(c.equals("Chalky Soils")) col = "00CC00";
- 	else if(c.equals("Silty Soils")) col = "FF66CC";
- 	else if(c.equals("Peaty Soils")) col = "000000";
- 	else if(c.equals("Sandy Soils")) col = "6600CC";
+	else if(c.equals("Clay Soils")) col = "FF0000";
+	else if(c.equals("Chalky Soils")) col = "00CC00";
+	else if(c.equals("Silty Soils")) col = "FF66CC";
+	else if(c.equals("Peaty Soils")) col = "000000";
+	else if(c.equals("Sandy Soils")) col = "6600CC";
+
 	
 	%>		
 		<tr>
@@ -218,12 +269,12 @@ while(rst.next()) {
 			<td><img src=<%=rst.getString("productImageURL")%> alt = "Product Image" width="100" height="70"></td>
 			<td><font color=<%=col%>><%=currFormat.format(rst.getDouble("productPrice"))%></font></td>
 		</tr>
-	<%
+	<%	
+	}
 }
 
 // Close connection
 closeConnection();
-
 // Useful code for formatting currency values:
 // NumberFormat currFormat = NumberFormat.getCurrencyInstance();
 // out.println(currFormat.format(5.0);	// Prints $5.00
