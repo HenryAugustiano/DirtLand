@@ -3,90 +3,54 @@
 <head>
 <title>Administrator Page</title>
 <link href="css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="./style.css" />
+<script src="https://www.gstatic.com/charts/loader.js"></script>
 </head>
-<body>
+<body style="background-color:#FFFDD0">
+<script type="text/javascript">
+    google.charts.load("current", {packages:['corechart']});
+    google.charts.setOnLoadCallback(drawChart);
+    function drawChart() {
+      var data = google.visualization.arrayToDataTable([
+        ["Order Date", "Amount", { role: "style" } ],
+        ["2019-10-13", 532, "gold"],
+        ["2019-10-14", 105, "gold"],
+        ["2019-10-15", 221, "gold"]
+      ]);
+
+      var view = new google.visualization.DataView(data);
+      view.setColumns([0, 1,
+                       { calc: "stringify",
+                         sourceColumn: 1,
+                         type: "string",
+                         role: "annotation" },
+                       2]);
+
+      var options = {
+        title: "Sales Report For Administrator",
+        width: 600,
+        height: 400,
+        bar: {groupWidth: "95%"},
+        legend: { position: "none" },
+      };
+      var chart = new google.visualization.ColumnChart(document.getElementById("columnchart_values"));
+      chart.draw(view, options);
+  }
+  </script>
+
+<%@ include file="auth.jsp" %>
 <%@ include file="jdbc.jsp" %>
-<%@ include file="navBar.jsp" %>
 
-<style> 
-	.styled-table {
-		border-collapse: collapse;
-		margin: 25px 0;
-		font-size: 0.9em;
-		font-family: sans-serif;
-		min-width: 400px;
-		box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
-	}
-
-	.styled-table thead tr {
-		background-color: #009879;
-		color: #ffffff;
-		text-align: center;
-	}
-
-	.styled-table th,
-	.styled-table td {
-    	padding: 12px 15px;	
-	}
-	.styled-table tbody tr {
-		border-bottom: 1px solid #dddddd;
-	}
-
-	.styled-table tbody tr:nth-of-type(even) {
-		background-color: #f3f3f3;
-	}
-
-	.styled-table tbody tr:last-of-type {
-		border-bottom: 2px solid #009879;
-	}
-
-	.styled-table tbody tr.active-row {
-		font-weight: bold;
-		color: #009879;
-	}
-
-	.topnav {
-			background-color: #333;
-			overflow: hidden;
-	}
-
-	.topnav a {
-		float: left;
-		color: #f2f2f2;
-		text-align: center;
-		padding: 14px 16px;
-		text-decoration: none;
-		font-size: 17px;
-	}
-
-	.topnav a:hover {
-		background-color: #ddd;
-		color: black;
-	}
-
-	.topnav a.active {
-		background-color: #04AA6D;
-		color: white;
-	}
-	
-	.topnav p {
-		float: right;
-		color: #f2f2f2;
-		text-align: center;
-		padding: 10px 10px;
-		text-decoration: none;
-		font-size: 17px;
-		margin:0;
-	}
-</style>
-<h3>Administrator Sales Report by Day</h3>
+<div class = "text-c">
+<h2>Administrator Sales Report by Day</h2>
 <font face="Arial" size="5">
-  <table class="table" border="1">
-    <tbody>
+  <table class="styled-table"; border="1" style="border-collapse:collapse;margin-left:auto;margin-right:auto;font-family: Futura;">
+    <thead>
       <tr>
         <th>Order Date</th>
         <th>Total Order Amount</th>
       </tr>
+    </thead>
 
 <%
 getConnection();
@@ -106,6 +70,7 @@ closeConnection();
     </tbody>
   </table>
 </font>
-
+<div id="columnchart_values" style="width: 900px; height: 300px;"></div>
+</div>
 </body>
 </html>

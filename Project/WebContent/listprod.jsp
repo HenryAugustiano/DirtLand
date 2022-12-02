@@ -9,13 +9,12 @@
 <html>
 <head>
 <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="./style.css" />
 <title>Jo's Products</title>
 </head>
 <body style="background-color:#FFFDD0">
 <br>
 <div class = "text-c">
-<h1> Top Products of the Store</h1>
-<br>
 <div id="slideshow">
         <div class="slide-wrapper">
             <div class="slide">
@@ -81,26 +80,25 @@ catch (java.lang.ClassNotFoundException e) {
 NumberFormat currFormat = NumberFormat.getCurrencyInstance(Locale.CANADA);
 getConnection();
 
-int count = 1;
-String temp="", png=".png", i="";
+String i="";
 
 %>
 <style> 
 	#slideshow {
 		overflow: hidden;
-		height: 510px;
-		width: 728px;
+		height: 450px;
+		width: 658px;
 		margin: 0 auto;
 	}
 
 	.slide {
 		float: left;
-		height: 510px;
-		width: 728px;
+		height: 450px;
+		width: 658px;
 	}
 
 	.slide-wrapper {
-		width: calc(728px * 4);
+		width: calc(658px * 4);
 		animation: slide 15s ease infinite;
 	}
 	
@@ -110,11 +108,11 @@ String temp="", png=".png", i="";
 	}
 	
 	40% {
-		margin-left: calc(-728px * 1);
+		margin-left: calc(-658px * 1);
 	}
 	
 	60% {
-		margin-left: calc(-728px * 2);
+		margin-left: calc(-658px * 2);
 	}
 	}
 </style>
@@ -131,14 +129,14 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css
 PreparedStatement pstmt = null;
 
 if(!cat.equals("all")){
-	String sql = "SELECT productId, productName, categoryName, productPrice " +
+	String sql = "SELECT productId, productName, categoryName, productImageURL, productPrice " +
 				"FROM product INNER JOIN category ON product.categoryId = category.categoryId " +
 				"WHERE categoryName = ? AND productName LIKE ?";
 	pstmt = con.prepareStatement(sql);
 	pstmt.setString(1, cat);
 	pstmt.setString(2,"%"+name+"%");
 } else{
-	String sql = "SELECT productId, productName, categoryName, productPrice " +
+	String sql = "SELECT productId, productName, categoryName, productImageURL, productPrice " +
 				"FROM product JOIN category ON product.categoryId = category.categoryId " +
 				"WHERE productName LIKE ?";
 	pstmt = con.prepareStatement(sql);
@@ -193,26 +191,20 @@ while(rst.next()) {
 	String addCart = "addcart.jsp?id=" + rst.getInt("productId") + "&name=" + prodNameLink + "&price=" + rst.getDouble("productPrice");
 	String prod = "product.jsp?id=" + rst.getInt("productId");
 	String col = "", c = rst.getString("categoryName");
-	if(c.equals("Beverages")) col = "0000FF";
-	else if(c.equals("Condiments")) col = "FF0000";
-	else if(c.equals("Produce")) col = "00CC00";
-	else if(c.equals("Seafood")) col = "FF66CC";
-	else if(c.equals("Dairy Products")) col = "6600CC";
-	else if(c.equals("Confections")) col = "000000";
-	else if(c.equals("Meat/Poultry")) col = "FF9900";
-	else if(c.equals("Grains/Cereals")) col = "55A5B3";
+	if(c.equals("Loamy Soils")) col = "0000FF";
+	else if(c.equals("Clay Soils")) col = "FF0000";
+	else if(c.equals("Chalky Soils")) col = "00CC00";
+	else if(c.equals("Silty Soils")) col = "FF66CC";
+	else if(c.equals("Peaty Soils")) col = "000000";
+	else if(c.equals("Sandy Soils")) col = "6600CC";
 
-	for(int j=1;j<17;j++){
-		if(rst.getInt("productId")==j) 
-			i = "img/" + Integer.toString(j) + ".jpg";
-	}
 	
 	%>		
 		<tr>
 			<td><a href=<%=addCart%>>Add To Cart</a></td>
 			<td><a href=<%=prod%>><%=rst.getString("productName")%></a></font></td>
 			<td><font color=<%=col%>><%=rst.getString("categoryName")%></font></td>
-			<td><img src=<%=i%> alt="ads" width="100" height="80"></td>
+			<td><img src=<%=rst.getString("productImageURL")%> alt = "Product Image" width="100" height="70"></td>
 			<td><font color=<%=col%>><%=currFormat.format(rst.getDouble("productPrice"))%></font></td>
 		</tr>
 	<%

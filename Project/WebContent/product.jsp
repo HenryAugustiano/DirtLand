@@ -13,50 +13,6 @@
 </head>
 <body style="background-color:#FFFDD0;">
 
-
-<style>
-.text-c {
-		text-align: center;
-	}
-	.topnav {
-		background-color: #333;
-		overflow: hidden;
-	}
-
-	.topnav a {
-		float: left;
-		color: #f2f2f2;
-		text-align: center;
-		padding: 14px 16px;
-		text-decoration: none;
-		font-size: 17px;
-	}
-	
-	.topnav p {
-		float: right;
-		color: #f2f2f2;
-		text-align: center;
-		padding: 10px 10px;
-		text-decoration: none;
-		font-size: 17px;
-		margin:0;
-	}
-
-	.topnav a:hover {
-		background-color: #ddd;
-		color: black;
-	}
-
-	.topnav a.active {
-		background-color: #04AA6D;
-		color: white;
-	}	
-
-	.topnav-right {
-  float: right;
-}
-</style>
-
 <link rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" />
 
