@@ -27,7 +27,6 @@
 		        font-family: sans-serif;
 		        font-size: 18px;
 		        text-align: center;
-		        font-weight: bold;
 		        padding: 4px;
 		        margin: 2px;
 		        transition-duration: 0.4s;
@@ -37,7 +36,7 @@
 	        }
 	        .input2, button {
                 font-family: sans-serif;
-		        font-size: 18px;
+		        font-size: 12px;
 		        text-align: center;
 		        font-weight: bold;
                 color:black;
@@ -46,7 +45,7 @@
 		        transition-duration: 0.4s;
 		        cursor: pointer;
 		        background: #FCFBF6;
-                float: right;
+                float: center;
 	        }
 	        .input:hover {
 		        background-color: #81BEF7;
@@ -55,8 +54,10 @@
 		        background-color: #81BEF7;
 	        }
             table{
-		        width: 100%;
+		        width: 50%;
                 padding: 4px;
+                margin-left: auto;
+                margin-right: auto;
 	        }
 	        table, td{
 		        border: 1px solid #7E8193;
