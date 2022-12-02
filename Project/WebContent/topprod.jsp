@@ -149,7 +149,7 @@ while(rst.next()) {
 		</tr>
 	<%
 }
-closeConnection();	
+	closeConnection();
     %>
     </body>
     </html>

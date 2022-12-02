@@ -10,14 +10,14 @@
 <head>
 <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
 <link rel="stylesheet" type="text/css" href="./style.css" />
-<title>Jo's Products</title>
+<title>Dirt Land Products</title>
 </head>
 <body style="background-color:#FFFDD0">
+
 <br>
-<div class = "text-c">
 <div id="slideshow">
-        <div class="slide-wrapper">
-            <div class="slide">
+         <div class="slide-wrapper">
+             <div class="slide">
                 <h1 class="slide-number">
                     <img src="img/1.jpg" alt="img1" width="600" height="400">
                 </h1>
@@ -80,21 +80,19 @@ catch (java.lang.ClassNotFoundException e) {
 NumberFormat currFormat = NumberFormat.getCurrencyInstance(Locale.CANADA);
 getConnection();
 
-String i="";
-
 %>
 <style> 
 	#slideshow {
 		overflow: hidden;
 		height: 450px;
-		width: 658px;
+ 		width: 658px;
 		margin: 0 auto;
 	}
 
 	.slide {
 		float: left;
 		height: 450px;
-		width: 658px;
+ 		width: 658px;
 	}
 
 	.slide-wrapper {
@@ -115,6 +113,20 @@ String i="";
 		margin-left: calc(-658px * 2);
 	}
 	}
+	.floating {
+		position: fixed;
+		width: 60px;
+		height: 60px;
+		bottom: 40px;
+		right: 40px;
+		background-color: #25d366;
+		color: #fff;
+		border-radius: 50px;
+		text-align: center;
+		font-size: 30px;
+		box-shadow: 2px 2px 3px #999;
+		z-index: 100;
+	}
 </style>
 
 <link rel="stylesheet"
@@ -129,7 +141,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css
 PreparedStatement pstmt = null;
 
 if(!cat.equals("all")){
-	String sql = "SELECT productId, productName, categoryName, productImageURL, productPrice " +
+	String sql = "SELECT productId, productName, categoryName, productPrice " +
 				"FROM product INNER JOIN category ON product.categoryId = category.categoryId " +
 				"WHERE categoryName = ? AND productName LIKE ?";
 	pstmt = con.prepareStatement(sql);
@@ -137,8 +149,8 @@ if(!cat.equals("all")){
 	pstmt.setString(2,"%"+name+"%");
 } else{
 	String sql = "SELECT productId, productName, categoryName, productImageURL, productPrice " +
-				"FROM product JOIN category ON product.categoryId = category.categoryId " +
-				"WHERE productName LIKE ?";
+ 				"FROM product JOIN category ON product.categoryId = category.categoryId " +
+ 				"WHERE productName LIKE ?";
 	pstmt = con.prepareStatement(sql);
 	pstmt.setString(1,"%"+name+"%");
 }
@@ -192,12 +204,11 @@ while(rst.next()) {
 	String prod = "product.jsp?id=" + rst.getInt("productId");
 	String col = "", c = rst.getString("categoryName");
 	if(c.equals("Loamy Soils")) col = "0000FF";
-	else if(c.equals("Clay Soils")) col = "FF0000";
-	else if(c.equals("Chalky Soils")) col = "00CC00";
-	else if(c.equals("Silty Soils")) col = "FF66CC";
-	else if(c.equals("Peaty Soils")) col = "000000";
-	else if(c.equals("Sandy Soils")) col = "6600CC";
-
+ 	else if(c.equals("Clay Soils")) col = "FF0000";
+ 	else if(c.equals("Chalky Soils")) col = "00CC00";
+ 	else if(c.equals("Silty Soils")) col = "FF66CC";
+ 	else if(c.equals("Peaty Soils")) col = "000000";
+ 	else if(c.equals("Sandy Soils")) col = "6600CC";
 	
 	%>		
 		<tr>
