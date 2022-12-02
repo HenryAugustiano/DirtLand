@@ -24,9 +24,10 @@ getConnection();
 String cidSQL = "SELECT customerId FROM customer WHERE userid = ?";
 PreparedStatement pstmtCid = con.prepareStatement(cidSQL);
 pstmtCid.setString(1,uname);
-ResultSet rst1 = pstmt.executeQuery();
-rst.next();
-String cid = rst1.getString("customerId");
+ResultSet rst1 = pstmtCid.executeQuery();
+rst1.next();
+int cid = rst1.getInt("customerId");
+
 
 //add review to db
 String SQL = "INSERT INTO review (reviewRating, customerId, productId, reviewComment) VALUES (?,?,?,?)";
