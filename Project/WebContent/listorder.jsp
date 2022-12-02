@@ -3,106 +3,23 @@
 <%@ page import="java.util.Locale" %>
 <%@ include file="jdbc.jsp" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF8"%>
-<%@ include file="navBar.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
-<title>Dirt Land Order List</title>
+<title>Jo's Order List</title>
+<link rel="stylesheet" type="text/css" href="./style.css" />
+<div class="topnav">
+  <a href="index.jsp">Homepage</a>
+  <a href="listprod.jsp">Product List</a>
+  <div class="topnav-right">
+  	<a href="showcart.jsp">Cart</a>
+	</div>
+</div>
 </head>
 <body style="background-color:#FFFDD0">
 
 <h1 style="text-align:center;font-family: Futura;">Order List</h1>
-<br>
-<style> 
-	.styled-table {
-		border-collapse: collapse;
-		margin: 25px 0;
-		font-size: 0.9em;
-		font-family: sans-serif;
-		min-width: 400px;
-		box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
-	}
-
-	.styled-table thead tr {
-		background-color: #009879;
-		color: #ffffff;
-		text-align: center;
-	}
-
-	.styled-table th,
-	.styled-table td {
-    	padding: 12px 15px;	
-	}
-	.styled-table tbody tr {
-		border-bottom: 1px solid #dddddd;
-	}
-
-	.styled-table tbody tr:nth-of-type(even) {
-		background-color: #f3f3f3;
-	}
-
-	.styled-table tbody tr:last-of-type {
-		border-bottom: 2px solid #009879;
-	}
-
-	.styled-table tbody tr.active-row {
-		font-weight: bold;
-		color: #009879;
-	}
-
-	.topnav {
-			background-color: #333;
-			overflow: hidden;
-	}
-
-	.topnav a {
-		float: left;
-		color: #f2f2f2;
-		text-align: center;
-		padding: 14px 16px;
-		text-decoration: none;
-		font-size: 17px;
-	}
-
-	.topnav a:hover {
-		background-color: #ddd;
-		color: black;
-	}
-
-	.topnav a.active {
-		background-color: #04AA6D;
-		color: white;
-	}
-	
-	.topnav p {
-		float: right;
-		color: #f2f2f2;
-		text-align: center;
-		padding: 10px 10px;
-		text-decoration: none;
-		font-size: 17px;
-		margin:0;
-	}
-
-	.floating {
-		position: fixed;
-		width: 60px;
-		height: 60px;
-		bottom: 40px;
-		right: 40px;
-		background-color: #25d366;
-		color: #fff;
-		border-radius: 50px;
-		text-align: center;
-		font-size: 30px;
-		box-shadow: 2px 2px 3px #999;
-		z-index: 100;
-	}
-
-	.fab-icon {
-		margin-top: 16px;
-	}
-</style>
+<br>	
 
 <link rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" />
