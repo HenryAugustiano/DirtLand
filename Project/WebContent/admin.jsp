@@ -1,3 +1,5 @@
+<%@ include file="navBar.jsp" %>
+<%@ include file="jdbc.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -37,9 +39,6 @@
       chart.draw(view, options);
   }
   </script>
-
-<%@ include file="auth.jsp" %>
-<%@ include file="jdbc.jsp" %>
 
 <div class = "text-c">
 <h2>Administrator Sales Report by Day</h2>
