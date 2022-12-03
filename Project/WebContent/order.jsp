@@ -14,7 +14,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>The Jo&#39s Order Processing</title>
+<title>Dirt Land Order Processing</title>
 </head>
 <body style="background-color:#FFFDD0;">
 
@@ -44,7 +44,7 @@ try {
 		%>
 		<h1 style="text-align: center;">Customer ID Is Invalid</h1>
 		<h2 style="text-align: center;"><a href="checkout.jsp">Try Again</a></h2>
-		<h2 style="text-align: center;"><a href="shop.html">Return To Jo&#39s Homepage</a></h2>
+		<h2 style="text-align: center;"><a href="index.jsp">Return To Dirt Land Homepage</a></h2>
 		<%
 	}else {
 		// Determine if password is correct
@@ -52,7 +52,7 @@ try {
 			%>
 			<h1 style="text-align: center;">Customer Password Is Invalid</h1>
 			<h2 style="text-align: center;"><a href="checkout.jsp">Try Again</a></h2>
-			<h2 style="text-align: center;"><a href="shop.html">Return To Jo&#39s Homepage</a></h2>
+			<h2 style="text-align: center;"><a href="index.jsp">Return To Dirt Land Homepage</a></h2>
 			<%
 		}else {
 			// Determine if there are products in the shopping cart
@@ -60,7 +60,7 @@ try {
 				%>
 				<h1 style="text-align: center">Your Shopping Cart Is Empty</h1>
 				<h2 style="text-align: center"><a href="shop.html">Return To Shopping</a></h2>
-				<h2 style="text-align: center"><a href="shop.html">Return To Jo&#39s Homepage</a></h2>
+				<h2 style="text-align: center"><a href="index.jsp">Return To Dirt Land Homepage</a></h2>
 				<%
 			}else {
 				// Save order information to database
@@ -156,7 +156,7 @@ try {
 				<h1>Your order reference number is: <%=orderId%>.</h1>
 				<h1>Order will be shipped to <%=fullName%>, Customer ID: <%=cId%>.</h1>
 				<h2><a href="listprod.jsp">Return To Shopping</a></h2>
-				<h2><a href="shop.html">Return To Jo&#39s Homepage</a></h2>
+				<h2><a href="shop.html">Return To Dirt Land Homepage</a></h2>
 				<%
 				// Clear cart if order placed successfully
 				productList.clear();
@@ -167,7 +167,7 @@ try {
 	%>
 	<h1>Customer ID Is Invalid</h1>
 	<h2><a href="checkout.jsp">Try Again</a></h2>
-	<h2><a href="shop.html">Return To Jo&#39s Homepage</a></h2>
+	<h2><a href="shop.html">Return To Dirt Land Homepage</a></h2>
 	<%
 }
 // Here is the code to traverse through a HashMap
