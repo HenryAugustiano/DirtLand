@@ -8,13 +8,28 @@
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="./style.css" />
 <script src="https://www.gstatic.com/charts/loader.js"></script>
+<!-- Bootstrap core CSS -->
+<link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css'>
+<link rel="stylesheet" href="./bootstrap.min.css">
 <style>
- .centered {
-           display: fixed;
-           margin-left: auto;
-           margin-right: auto;
-           width: 55%;
-         }
+  .center {
+      margin: auto;
+      width: 50%;
+      padding: 10px;
+  }
+
+  .right {
+      float: right;
+      width: 50%;
+      padding-left: 30px;
+      padding-right: 10px;
+  }
+
+  .left {
+      float: left;
+      width: 50%;
+
+  }
  </style>
 </head>
 <%-- admin navbar --%>
@@ -26,32 +41,34 @@
   </div>
 </div>
 
-<body style="background-color:#FFFDD0">
-<div class = "text-c">
-<h2>Administrator Sales Report by Day</h2>
-<font face="Arial" size="5">
-  <table class="styled-table"; border="1" style="border-collapse:collapse;margin-left:auto;margin-right:auto;">
-    <thead>
-      <tr>
-        <th>Order Date</th>
-        <th>Total Order Amount</th>
+<body style="background-color:#C4DEDC">
+<div class="left" style="margin:10px;padding:10px;width: 500px">
+    <h3><b>Administrator Sales Report by Day</b></h3>
+    <br>
+    <table class="table table-hover card" style="width: 500px">
+        <thead>
+        <tr class="table-info">
+            <th scope="col">Order Date</th>
+            <th scope="col">Total Order Amount</th>
       </tr>
     </thead>
 
-<%
-ArrayList<List<String>> list = new ArrayList<>();
-SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd"); 
-getConnection();
-String sql = "SELECT CONVERT(date,orderDate), sum(totalAmount) FROM ordersummary GROUP BY CONVERT(date, orderDate) ";
-PreparedStatement pstmt = con.prepareStatement(sql);
-ResultSet rst = pstmt.executeQuery();
-while(rst.next()) {
-%>
-      <tr>
-        <td><%=rst.getDate(1)%></td>
-        <td><%=rst.getDouble(2)%></td>
-      </tr>
-<%
+    <%
+        ArrayList<List<String>> list = new ArrayList<>();
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        getConnection();
+        String sql = "SELECT CONVERT(date,orderDate), sum(totalAmount) FROM ordersummary GROUP BY CONVERT(date, orderDate) ";
+        PreparedStatement pstmt = con.prepareStatement(sql);
+        ResultSet rst = pstmt.executeQuery();
+        while (rst.next()) {
+    %>
+    <tr>
+        <td><%=rst.getDate(1)%>
+        </td>
+        <td><%=rst.getDouble(2)%>
+        </td>
+    </tr>
+    <%
  java.util.Date jDate = new java.util.Date(rst.getDate(1).getTime());
   String[] temp = new String[2];
   temp[0] = formatter.format(jDate);
@@ -85,7 +102,7 @@ closeConnection();
 
        var options = {
          title: "Sales Report For Administrator",
-         width: 600,
+         width: 500,
          height: 400,
          bar: {groupWidth: "95%"},
          legend: { position: "none" },
@@ -97,5 +114,30 @@ closeConnection();
 </font>
 <div id="columnchart_values" style="width: 900px; height: 300px;margin-left:auto;margin-right:auto;"></div>
 </div>
+<form name="MyForm" method=post action="editProduct.jsp" class="right">
+        <br>
+        <h3><b>Manage Products</b></h3>
+        <br>
+        <table>
+            <tr>
+                <td>
+                    <div class="form-group" align="left"><b>Product ID:</b></div>
+                </td>
+                <td><br></td>
+                <td><input class="form-control" placeholder="Enter your product id" type="text" name="id" size=30
+                           maxlength=30 required></td>
+            </tr>
+            <tr>
+                <td><br></td>
+            </tr>
+            <tr>
+                <td colspan="3">
+                    <input class="submit btn btn-lg btn-primary left" type="submit" name="Submit"
+                           value="Update Inventory" style="width:100%; ">
+                </td>
+            </tr>
+        </table>
+        <br/>
+    </form>
 </body>
 </html>
