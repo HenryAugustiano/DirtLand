@@ -2,10 +2,12 @@
 <%@ page import="java.text.NumberFormat" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF8"%>
 <%@ include file="jdbc.jsp" %>
+<%@ include file="navbar.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
 <title> inserting review to db</title>
+<link rel="stylesheet" type="text/css" href="./style.css" />
 </head>
 
 <body style="background-color:#FFFDD0">
@@ -14,9 +16,9 @@ String uname = (String)session.getAttribute("authenticatedUser");
 int rating = Integer.parseInt(request.getParameter("rating"));
 if(rating == 0)
     rating = -1;
-String comment = request.getParameter("comment");
+String comment = request.getParameter("desc");
 if(comment == null)
-    comment = "";
+    comment = "broken addreview.db";
 int prodId = Integer.parseInt(request.getParameter("prodId"));
 
 getConnection();
@@ -40,7 +42,6 @@ pstmt.setString(4,comment);
 
 pstmt.executeUpdate();
 %>
-
-<h3>success add review</h3>
+<h3>Success add review</h3>
 </body>
 </html>

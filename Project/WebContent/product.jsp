@@ -73,7 +73,36 @@ String prodName = rst.getString("productName");
 		productImageURL = prodName;
 	}
 String addcartVal = "addcart.jsp?id=" + rst.getInt("productId") + "&name=" + productImageURL + "&price=" + rst.getDouble("productPrice");
+
+//list review for corresponding product
+String sqlreview = "SELECT reviewRating, reviewComment FROM review WHERE productId = ?";
+PreparedStatement pstmtReview = con.prepareStatement(sqlreview);
+pstmtReview.setInt(1,prodId);
+ResultSet rstReview = pstmtReview.executeQuery();
+if(!rstReview.next()){
+	out.println("There's no review for this product right now.");
+}else{
+		%>
+			<table class="styled-table"; border="1" style="border-collapse:collapse;margin-left:auto;margin-right:auto;font-family: Futura;">
+			<thead>
+				<tr>
+					<th>Rating</th>
+					<th>Comment</th>
+				</tr>
+			</thead>			
+		<%
+		do{
+		%>
+			<tr>
+			<td><%=rstReview.getInt("reviewRating")%></td>
+			<td><%=rstReview.getString("reviewComment")%></td>
+			</tr>
+		<%
+		}while(rstReview.next());
+	}
+
 %>
+</table>
 <h2><a href=<%=addcartVal%>>Add To Cart</a></h2>
 <h2><a href="listprod.jsp">Continue Shopping</a></h2>
 <% 
