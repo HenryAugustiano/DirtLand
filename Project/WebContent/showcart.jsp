@@ -9,6 +9,9 @@
 <html>
 <head>
 <title>Your Shopping Cart</title>
+<!-- Bootstrap core CSS -->
+<link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css'>
+<link rel="stylesheet" href="./bootstrap.min.css">
 </head>
 <body style="background-color:#FFFDD0;">
 <style> 
@@ -45,6 +48,15 @@
 		font-size: 17px;
 		margin:0;
 	}
+	h1{
+		text-align: center;
+		margin : auto;
+	}
+	h2{
+		text-align: center;
+		margin : auto;
+	}
+
 </style>
 <%
 // Get the current list of products
@@ -52,7 +64,7 @@
 HashMap<String, ArrayList<Object>> productList = (HashMap<String, ArrayList<Object>>) session.getAttribute("productList");
 
 if (productList == null)
-{	out.println("<H1>Your don't have any item in the cart</H1>");
+{	out.println("<h1>Your don't have any item in the cart</h1>");
 	productList = new HashMap<String, ArrayList<Object>>();
 }
 else

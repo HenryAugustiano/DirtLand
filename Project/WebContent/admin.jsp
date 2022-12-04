@@ -1,6 +1,7 @@
 <%@ page import="java.text.SimpleDateFormat" %>
 <%@ page import="java.util.*" %>
 <%@ include file="jdbc.jsp" %>
+<%@ include file="navbarAM.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -32,15 +33,6 @@
   }
  </style>
 </head>
-<%-- admin navbar --%>
-<div class="topnav">
-  <a href="admin.jsp">Sales Report</a>
-  <a href="inventory.jsp">Inventory</a>
-  <a href="adminListCust.jsp">Customer List</a>
-  <div class="topnav-right">
-  <a href="index.jsp">Homepage</a>
-  </div>
-</div>
 
 <body style="background-color:#C4DEDC">
 <div class="left" style="margin:10px;padding:10px;width: 500px">

@@ -3,18 +3,16 @@
 <%@ page import="java.util.Locale" %>
 <%@ include file="jdbc.jsp" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF8"%>
+<%-- navbar --%>
+<%@ include file="navBar.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
-<title>Jo's Order List</title>
+<title>Dirt Land Order List</title>
 <link rel="stylesheet" type="text/css" href="./style.css" />
-<div class="topnav">
-  <a href="index.jsp">Homepage</a>
-  <a href="listprod.jsp">Product List</a>
-  <div class="topnav-right">
-  	<a href="showcart.jsp">Cart</a>
-	</div>
-</div>
+<!-- Bootstrap core CSS -->
+<link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css'>
+<link rel="stylesheet" href="./bootstrap.min.css">
 </head>
 <body style="background-color:#FFFDD0">
 

@@ -10,7 +10,10 @@
 <head>
 <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
 <link rel="stylesheet" type="text/css" href="./style.css" />
-<title>Jo's Products</title>
+<!-- Bootstrap core CSS -->
+<link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css'>
+<link rel="stylesheet" href="./bootstrap.min.css">
+<title>Dirt Land Products</title>
 </head>
 <body style="background-color:#FFFDD0">
 <br>
@@ -216,10 +219,10 @@ while(rst.next()) {
 	%>		
 		<tr>
 			<td><a href=<%=addCart%>>Add To Cart</a></td>
-			<td><a href=<%=prod%>><%=rst.getString("productName")%></a></font></td>
+			<td><a href=<%=prod%>><%=rst.getString("productName")%></a></td>
 			<td><img src=<%=rst.getString("productImageURL")%> alt = "Product Image" width="100" height="70"></td>
 			<td><%=currFormat.format(rst.getDouble("productPrice"))%></td>
-			<td><%=rst.getInt("totalQty")%></font></td>
+			<td><%=rst.getInt("totalQty")%></td>
 		</tr>
 	<%	
 	}

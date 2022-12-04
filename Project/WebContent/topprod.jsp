@@ -2,19 +2,16 @@
 <%@ page import="java.text.NumberFormat" %>
 <%@ page import="java.util.Locale" %>
 <%@ include file="jdbc.jsp" %>
+<%-- navbar --%>
+<%@ include file="navBar.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
 <title>Top Dirt</title>
 <link rel="stylesheet" type="text/css" href="./style.css" />
-<div class="topnav">
-  <a href="index.jsp">Homepage</a>
-  <a href="listprod.jsp">Product List</a>
-  <a href="listorder.jsp">Order List</a>
-  <div class="topnav-right">
-  	<a href="showcart.jsp">Cart</a>
-	</div>
-</div>
+<!-- Bootstrap core CSS -->
+<link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css'>
+<link rel="stylesheet" href="./bootstrap.min.css">
 <div class = "text-c">
 <h1> Top Products of the Store</h1>
 <div id="slideshow">

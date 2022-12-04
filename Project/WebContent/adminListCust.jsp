@@ -1,20 +1,17 @@
 <%@ page import="java.sql.*" %>
 <%@ include file="jdbc.jsp" %>
+<%@ include file="navbarAM.jsp" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF8"%>
 <!DOCTYPE html>
 <html>
 <head>
-<title>Jo's Order List</title>
+<title>Dirt Land Order List</title>
 <link rel="stylesheet" type="text/css" href="./style.css" />
-<div class="topnav">
-  <a href="admin.jsp">Sales Report</a>
-  <a href="inventory.jsp">Inventory</a>
-  <div class="topnav-right">
-  <a href="index.jsp">Homepage</a>
-  </div>
-</div>
+<!-- Bootstrap core CSS -->
+<link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css'>
+<link rel="stylesheet" href="./bootstrap.min.css">
 </head>
-<body style="background-color:#FFFDD0">
+<body style="background-color:#C4DEDC">
 
 <h1 style="text-align:center;font-family: Futura;">Order List</h1>
 <br>	
