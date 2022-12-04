@@ -36,6 +36,7 @@
 <div class="topnav">
   <a href="admin.jsp">Sales Report</a>
   <a href="inventory.jsp">Inventory</a>
+  <a href="adminListCust.jsp">Customer List</a>
   <div class="topnav-right">
   <a href="index.jsp">Homepage</a>
   </div>
@@ -48,8 +49,8 @@
     <table class="table table-hover card" style="width: 500px">
         <thead>
         <tr class="table-info">
-            <th scope="col">Order Date</th>
-            <th scope="col">Total Order Amount</th>
+            <th scope="col" style="width: 200px;text-align: center">Order Date</th>
+            <th scope="col" style="width: 300px;text-align: center">Total Order Amount</th>
       </tr>
     </thead>
 
@@ -63,9 +64,9 @@
         while (rst.next()) {
     %>
     <tr>
-        <td><%=rst.getDate(1)%>
+        <td style="width: 200px;text-align: center"><%=rst.getDate(1)%>
         </td>
-        <td><%=rst.getDouble(2)%>
+        <td style="width: 300px;text-align: center"><%=rst.getDouble(2)%>
         </td>
     </tr>
     <%

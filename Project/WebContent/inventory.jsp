@@ -46,6 +46,7 @@
 <div class="topnav">
   <a href="admin.jsp">Sales Report</a>
   <a href="inventory.jsp">Inventory</a>
+  <a href="adminListCust.jsp">Customer List</a>
   <div class="topnav-right">
   <a href="index.jsp">Homepage</a>
   </div>
