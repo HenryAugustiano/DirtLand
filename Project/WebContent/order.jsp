@@ -9,7 +9,7 @@
 <%@ include file="jdbc.jsp" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF8"%>
 <%-- to request authentication --%>
-<%@ include file="auth.jsp" %>  
+<%-- <%@ include file="auth.jsp" %>   --%>
 
 <!DOCTYPE html>
 <html>
@@ -59,7 +59,7 @@ try {
 			if(productList.isEmpty()) {
 				%>
 				<h1 style="text-align: center">Your Shopping Cart Is Empty</h1>
-				<h2 style="text-align: center"><a href="shop.html">Return To Shopping</a></h2>
+				<h2 style="text-align: center"><a href="index.jsp">Return To Shopping</a></h2>
 				<h2 style="text-align: center"><a href="index.jsp">Return To Dirt Land Homepage</a></h2>
 				<%
 			}else {
@@ -156,7 +156,7 @@ try {
 				<h1>Your order reference number is: <%=orderId%>.</h1>
 				<h1>Order will be shipped to <%=fullName%>, Customer ID: <%=cId%>.</h1>
 				<h2><a href="listprod.jsp">Return To Shopping</a></h2>
-				<h2><a href="shop.html">Return To Dirt Land Homepage</a></h2>
+				<h2><a href="index.jsp">Return To Dirt Land Homepage</a></h2>
 				<%
 				// Clear cart if order placed successfully
 				productList.clear();
@@ -167,7 +167,7 @@ try {
 	%>
 	<h1>Customer ID Is Invalid</h1>
 	<h2><a href="checkout.jsp">Try Again</a></h2>
-	<h2><a href="shop.html">Return To Dirt Land Homepage</a></h2>
+	<h2><a href="index.jsp">Return To Dirt Land Homepage</a></h2>
 	<%
 }
 // Here is the code to traverse through a HashMap
