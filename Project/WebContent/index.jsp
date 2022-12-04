@@ -40,11 +40,6 @@
 
 <h2 align="center"><span class="badge badge-pill badge-light"> <a href="adminLogin.jsp">Administrators</a></span></h2>
 
-<h2 align="center"><span class="badge badge-pill badge-light"> <a href="logout.jsp">Log out</a></span></h2>
-<br>
-<br>
-<h2 align="center"><span class="badge badge-pill badge-light"> <a href="tel:1234567"> Call Our Customer Service</a></span></h2>
-
 <div id="google_translate_element"></div>
 
 <script type="text/javascript">
