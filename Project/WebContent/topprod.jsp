@@ -10,7 +10,7 @@
 <title>Top Dirt</title>
 <link rel="stylesheet" type="text/css" href="./style.css" />
 <!-- Bootstrap core CSS -->
-<link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css'>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
 <link rel="stylesheet" href="./bootstrap.min.css">
 <div class = "text-c">
 <h1> Top Products of the Store</h1>
@@ -47,9 +47,10 @@
     <style> 
 	#slideshow {
 		overflow: hidden;
-		height: 410px;
+		height: 300px;
 		width: 688px;
 		margin: 0 auto;
+		margin-bottom: 100px;
 	}
 
 	.slide {
@@ -84,6 +85,12 @@
 		margin-left: calc(-688px * 4);
 	}
 	}
+	.centered {
+		display: block;
+		margin-left: auto;
+		margin-right: 290px;
+		width: 60%;
+		}
 </style>
 <link rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" />
@@ -92,38 +99,27 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css
 <i class="fab fa-whatsapp fab-icon"></i>
 </div>
 </a>
-    </head>
-    <body style="background-color:#FFFDD0">
-    <%
-    try {	// Load driver class
-	Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-    }
-    catch (java.lang.ClassNotFoundException e) {
-        out.println("ClassNotFoundException: " +e);
-    }
+</head>
+<body style="background-color:#FFFDD0">
+<%
+try {	// Load driver class
+Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+}
+catch (java.lang.ClassNotFoundException e) {
+	out.println("ClassNotFoundException: " +e);
+}
 
-    NumberFormat currFormat = NumberFormat.getCurrencyInstance(Locale.CANADA);
-    getConnection();
+NumberFormat currFormat = NumberFormat.getCurrencyInstance(Locale.CANADA);
+getConnection();
 
-    String sql = "SELECT TOP 5 product.productId, productName, productImageURL, productPrice, SUM(quantity) AS totalQty " +
-				"FROM orderproduct LEFT JOIN product ON orderproduct.productId = product.productId " +
-				"GROUP BY product.productId, productName, productImageURL, productPrice " +
-                "ORDER BY totalQty DESC";
-	PreparedStatement pstmt = con.prepareStatement(sql);
-    ResultSet rst = pstmt.executeQuery();
-
-    %>
-<table class="styled-table"; border="1" style="border-collapse:collapse;margin-left:auto;margin-right:auto;font-family: Futura;">
-	<thead>
-		<tr>
-			<th></th>
-			<th>Product Id</th>
-			<th>Product Name</th>
-			<th>Produt Image</th>
-            <th>Product Price</th>
-			<th>Total Qty Ordered</th>
-		</tr>
-	</thead>
+String sql = "SELECT TOP 3 product.productId, productName, productImageURL, productPrice, SUM(quantity) AS totalQty " +
+			"FROM orderproduct LEFT JOIN product ON orderproduct.productId = product.productId " +
+			"GROUP BY product.productId, productName, productImageURL, productPrice " +
+			"ORDER BY totalQty DESC";
+PreparedStatement pstmt = con.prepareStatement(sql);
+ResultSet rst = pstmt.executeQuery();
+%>
+	<div class="card-deck centered">
 <%
 while(rst.next()) {
     String prodName = rst.getString("productName");
@@ -135,17 +131,21 @@ while(rst.next()) {
 	}
     String addCart = "addcart.jsp?id=" + rst.getInt("productId") + "&name=" + prodNameLink + "&price=" + rst.getDouble("productPrice");
 	String prod = "product.jsp?id=" + rst.getInt("productId");
-	%>		
-		<tr>
-			<td><a href=<%=addCart%>>Add To Cart</a></td>
-			<td><%=rst.getInt("productId")%></a></font></td>
-			<td><a href=<%=prod%>><%=rst.getString("productName")%></font></td>
-			<td><img src=<%=rst.getString("productImageURL")%> alt = "Product Image" width="100" height="70"></td>
-            <td><%=currFormat.format(rst.getDouble("productPrice"))%></font></td>
-            <td><%=rst.getInt("totalQty")%></font></td>
-		</tr>
+	%>	
+			<div class="card" style="width: 18rem;" >
+				<img src=<%=rst.getString("productImageURL")%>  class="card-img-top" alt="Product Image">
+				<div class="card-body">
+					<h5 class="card-title"><a href=<%=prod%>><%=rst.getString("productName")%></a></h5>
+					<p class="card-text"><%=rst.getInt("totalQty")%>&nbsp items sold!</p>
+					<a href=<%=addCart%> class="btn btn-primary">Add To Cart</a>
+				</div>
+			</div>
+		
 	<%
 }
+	%>
+		</div>	
+	<%
 	closeConnection();
     %>
     </body>
