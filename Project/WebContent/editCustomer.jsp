@@ -20,7 +20,13 @@
         getConnection();
         String address = request.getParameter("address");
         String password = request.getParameter("password");
-        if(address == null || password == null){
+        if(address == null){
+            address = "";
+        }
+        if(password == null){
+            password = "";
+        }
+        if(address.equals("") || password.equals("")){
         %>
         <h2>Please fill the form again as a field is left empty</h2><br>
         <h2><a href="myaccount.jsp">Back</a></h2>

@@ -3,6 +3,7 @@
 <%@ page import="java.DateTime.*" %>
 <%@ page import="java.text.NumberFormat" %>
 <%@ page import="java.util.Locale" %>
+<%@ include file="navBar.jsp" %>
 
 <!DOCTYPE html>
 <html>
