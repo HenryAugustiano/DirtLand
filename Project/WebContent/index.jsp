@@ -32,6 +32,8 @@
 
 <h2 align="center"><span class="badge badge-pill badge-light"><a href="createAccount.jsp">Create Accoount</a></span></h2>
 
+<h2 align="center"><span class="badge badge-pill badge-light"> <a href="myaccount.jsp">Edit Account</a></span></h2>
+
 <h2 align="center"> <span class="badge badge-pill badge-light"> <a href="listprod.jsp">Begin Shopping</a></span></h2>
 
 <h2 align="center"><span class="badge badge-pill badge-light"> <a href="listorder.jsp">List All Orders</a></span></h2>
