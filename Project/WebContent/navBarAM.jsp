@@ -16,6 +16,10 @@
                     </a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" href="addProduct.jsp">Add Product
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="inventory.jsp">Inventory
                     </a>
                 </li>
