@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Dirt Land Order List</title>
+<title>Dirt Land Customer List</title>
 <link rel="stylesheet" type="text/css" href="./style.css" />
 <!-- Bootstrap core CSS -->
 <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css'>
@@ -13,7 +13,7 @@
 </head>
 <body style="background-color:#C4DEDC">
 
-<h1 style="text-align:center;font-family: Futura;">Order List</h1>
+<h1 style="text-align:center;font-family: Futura;">Customer List</h1>
 <br>	
 
 <link rel="stylesheet"
