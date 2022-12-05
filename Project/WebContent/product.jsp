@@ -10,8 +10,11 @@
 <html>
 <head>
 <title>Dirt Land - Product Information</title>
+<link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
 <link rel="stylesheet" type="text/css" href="./style.css" />
-<link href="css/bootstrap.min.css" rel="stylesheet">
+<!-- Bootstrap core CSS -->
+<link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css'>
+<link rel="stylesheet" href="./bootstrap.min.css">
 </head>
 <body style="background-color:#FFFDD0;">
 <link rel="stylesheet"

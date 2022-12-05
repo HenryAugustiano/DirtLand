@@ -28,8 +28,6 @@
 <h1 style="text-align:center"><span class="badge badge-pill badge-warning">&#10024; Welcome to Dirt Land &#10024;</span></h1>
 </br></br>
 
-<h2 align="center"><span class="badge badge-pill badge-light"><a href="login.jsp">Login</a></span></h2>
-
 <h2 align="center"><span class="badge badge-pill badge-light"><a href="createAccount.jsp">Create Accoount</a></span></h2>
 
 <h2 align="center"> <span class="badge badge-pill badge-light"> <a href="listprod.jsp">Begin Shopping</a></span></h2>
