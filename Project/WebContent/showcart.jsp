@@ -8,6 +8,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link rel="stylesheet" type="text/css" href="./style.css" />
 <title>Your Shopping Cart</title>
 <!-- Bootstrap core CSS -->
 <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css'>
@@ -15,39 +16,6 @@
 </head>
 <body style="background-color:#FFFDD0;">
 <style> 
-	.topnav {
-			background-color: #333;
-			overflow: hidden;
-	}
-
-	.topnav a {
-		float: left;
-		color: #f2f2f2;
-		text-align: center;
-		padding: 14px 16px;
-		text-decoration: none;
-		font-size: 17px;
-	}
-
-	.topnav a:hover {
-		background-color: #ddd;
-		color: black;
-	}
-
-	.topnav a.active {
-		background-color: #04AA6D;
-		color: white;
-	}
-	
-	.topnav p {
-		float: right;
-		color: #f2f2f2;
-		text-align: center;
-		padding: 10px 10px;
-		text-decoration: none;
-		font-size: 17px;
-		margin:0;
-	}
 	h1{
 		text-align: center;
 		margin : auto;
@@ -72,7 +40,8 @@ else
 	NumberFormat currFormat = NumberFormat.getCurrencyInstance();
 
 	out.println("<h1>Your Shopping Cart</h1>");
-	out.print("<table><tr><th>Product Id</th><th>Product Name</th><th>Quantity</th>");
+	out.println("<br><br><br>");
+	out.print("<table style=\"border-collapse:collapse;margin-left:auto;margin-right:auto;font-family: Futura;\"><tr><th>Product Id</th><th>Product Name</th><th>Quantity</th>");
 	out.println("<th>Price</th><th>Subtotal</th><th>Remove</th></tr>");
 
 	double total =0;
@@ -124,6 +93,7 @@ else
 			+"<td align=\"right\">"+currFormat.format(total)+"</td></tr>");
 	out.println("</table>");
 
+	out.println("<br><br><br>");
 	out.println("<h2><a href=\"checkout.jsp\">Check Out</a></h2>");
 }
 %>

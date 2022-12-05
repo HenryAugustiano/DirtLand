@@ -126,7 +126,6 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css
 
 <a href="https://wa.me/12508996062?text=Hi I would like to ask about your product!" class="floating" target="_blank">
 <i class="fab fa-whatsapp fab-icon"></i>
-</div>
 </a>
 <%
 
@@ -188,14 +187,15 @@ if(name.equals("") && cat.equals("all")) {
 
 if(cat.equals("Recommended")){
 	%>
+
 <table class="styled-table"; border="1" style="border-collapse:collapse;margin-left:auto;margin-right:auto;font-family: Futura;">
 	<thead>
 		<tr>
 			<th></th>
-			<th>Product Name</th>
-			<th>Product Picture</th>
-			<th>Price</th>
-			<th>Quantity Ordered</th>
+			<th style="text-align:center;">Product Name</th>
+			<th style="text-align:center;">Product Picture</th>
+			<th style="text-align:center;">Price</th>
+			<th style="text-align:center;">Quantity Ordered</th>
 		</tr>
 	</thead>
 <%
@@ -218,11 +218,11 @@ while(rst.next()) {
 	
 	%>		
 		<tr>
-			<td><a href=<%=addCart%>>Add To Cart</a></td>
-			<td><a href=<%=prod%>><%=rst.getString("productName")%></a></td>
-			<td><img src=<%=rst.getString("productImageURL")%> alt = "Product Image" width="100" height="70"></td>
-			<td><%=currFormat.format(rst.getDouble("productPrice"))%></td>
-			<td><%=rst.getInt("totalQty")%></td>
+			<td style="text-align:center;"><a href=<%=addCart%>>Add To Cart</a></td>
+			<td style="text-align:center;"><a href=<%=prod%>><%=rst.getString("productName")%></a></td>
+			<td style="text-align:center;"><img src=<%=rst.getString("productImageURL")%> alt = "Product Image" width="100" height="70"></td>
+			<td style="text-align:center;"><%=currFormat.format(rst.getDouble("productPrice"))%></td>
+			<td style="text-align:center;"><%=rst.getInt("totalQty")%></td>
 		</tr>
 	<%	
 	}
@@ -232,10 +232,10 @@ while(rst.next()) {
 	<thead>
 		<tr>
 			<th></th>
-			<th>Product Name</th>
-			<th>Product Picture</th>
-			<th>Category</th>
-			<th>Price</th>
+			<th style="text-align:center;">Product Name</th>
+			<th style="text-align:center;">Product Picture</th>
+			<th style="text-align:center;">Category</th>
+			<th style="text-align:center;">Price</th>
 		</tr>
 	</thead>
 <%
@@ -266,11 +266,11 @@ while(rst.next()) {
 	
 	%>		
 		<tr>
-			<td><a href=<%=addCart%>>Add To Cart</a></td>
-			<td><a href=<%=prod%>><%=rst.getString("productName")%></a></font></td>
-			<td><font color=<%=col%>><%=rst.getString("categoryName")%></font></td>
-			<td><img src=<%=rst.getString("productImageURL")%> alt = "Product Image" width="100" height="70"></td>
-			<td><font color=<%=col%>><%=currFormat.format(rst.getDouble("productPrice"))%></font></td>
+			<td style="text-align:center;"><a href=<%=addCart%>>Add To Cart</a></td>
+			<td style="text-align:center;"><a href=<%=prod%>><%=rst.getString("productName")%></a></font></td>
+			<td style="text-align:center;"><font color=<%=col%>><%=rst.getString("categoryName")%></font></td>
+			<td style="text-align:center;"><img src=<%=rst.getString("productImageURL")%> alt = "Product Image" width="100" height="70"></td>
+			<td style="text-align:center;"><font color=<%=col%>><%=currFormat.format(rst.getDouble("productPrice"))%></font></td>
 		</tr>
 	<%	
 	}
