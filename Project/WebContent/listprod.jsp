@@ -84,8 +84,6 @@ catch (java.lang.ClassNotFoundException e) {
 NumberFormat currFormat = NumberFormat.getCurrencyInstance(Locale.CANADA);
 getConnection();
 
-String i="";
-
 %>
 <style> 
 	#slideshow {
@@ -138,7 +136,7 @@ if(cat.equals("all")){
 	pstmt = con.prepareStatement(sql);
 	pstmt.setString(1,"%"+name+"%");
 } else if(cat.equals("Recommended")){
-	String sql = "SELECT TOP 3 product.productId, productName, productImageURL, productPrice, userid, SUM(quantity) AS totalQty " +
+	String sql = "SELECT product.productId, productName, productImageURL, productPrice, SUM(quantity) AS totalQty, MAX(orderDate) AS lastordered " +
 				"FROM orderproduct LEFT JOIN product ON orderproduct.productId = product.productId " +
 				"INNER JOIN ordersummary ON ordersummary.orderId = orderproduct.orderId " +
 				"INNER JOIN customer ON customer.customerId = ordersummary.customerId " +
@@ -173,11 +171,11 @@ if(name.equals("") && cat.equals("all")) {
 	<%
 }else if(!name.equals("") && cat.equals("Recommended")) {
 	%>
-	<h2 style="text-align:center;font-family: Futura;">Recommended products based on previous purchases containing '<%=name%>'</h2>
+	<h2 style="text-align:center;font-family: Futura;">Recommended products containing '<%=name%>'</h2>
 	<%
 }else if(name.equals("") && cat.equals("Recommended")) {
 	%>
-	<h2 style="text-align:center;font-family: Futura;">All recommended products based on previous purchases</h2>
+	<h2 style="text-align:center;font-family: Futura;">All recommended products</h2>
 	<%
 }else if(!name.equals("") && !cat.equals("all") && !cat.equals("Recommended")) {
 	%>
@@ -186,25 +184,24 @@ if(name.equals("") && cat.equals("all")) {
 }
 
 if(cat.equals("Recommended")){
-	%>
-
-<table class="styled-table"; border="1" style="border-collapse:collapse;margin-left:auto;margin-right:auto;font-family: Futura;">
+	%><br><%
+// For each product create a link of the form
+// addcart.jsp?id=productId&name=productName&price=productPrice
+// Print out the ResultSet
+%>	
+	<h3 style="text-align:center;font-family: Futura;">Products you previously ordered</h3>
+	<table class="styled-table"; border="1" style="border-collapse:collapse;margin-left:auto;margin-right:auto;font-family: Futura;">
 	<thead>
 		<tr>
 			<th></th>
 			<th style="text-align:center;">Product Name</th>
 			<th style="text-align:center;">Product Picture</th>
 			<th style="text-align:center;">Price</th>
-			<th style="text-align:center;">Quantity Ordered</th>
+			<th style="text-align:center;">Total Quantity Ordered</th>
+			<th style="text-align:center;">Last Ordered</th>
 		</tr>
 	</thead>
 <%
-
-// For each product create a link of the form
-// addcart.jsp?id=productId&name=productName&price=productPrice
-// Print out the ResultSet
-
-
 while(rst.next()) {
 	String prodName = rst.getString("productName");
 	String prodNameLink = "";
@@ -216,16 +213,80 @@ while(rst.next()) {
 	String addCart = "addcart.jsp?id=" + rst.getInt("productId") + "&name=" + prodNameLink + "&price=" + rst.getDouble("productPrice");
 	String prod = "product.jsp?id=" + rst.getInt("productId");
 	
-	%>		
+	%>	
 		<tr>
 			<td style="text-align:center;"><a href=<%=addCart%>>Add To Cart</a></td>
 			<td style="text-align:center;"><a href=<%=prod%>><%=rst.getString("productName")%></a></td>
 			<td style="text-align:center;"><img src=<%=rst.getString("productImageURL")%> alt = "Product Image" width="100" height="70"></td>
 			<td style="text-align:center;"><%=currFormat.format(rst.getDouble("productPrice"))%></td>
-			<td style="text-align:center;"><%=rst.getInt("totalQty")%></td>
+			<td style="text-align:center;"><%=rst.getString("totalQty")%></td>
+			<td style="text-align:center;"><%=rst.getString("lastOrdered")%></td>
 		</tr>
-	<%	
+	<%
 	}
+	%>
+	</table>
+	<%
+	String s = "SELECT DISTINCT categoryName " +
+				"FROM orderproduct LEFT JOIN product ON orderproduct.productId = product.productId " +
+				"INNER JOIN ordersummary ON ordersummary.orderId = orderproduct.orderId " +
+				"INNER JOIN customer ON customer.customerId = ordersummary.customerId " +
+				"INNER JOIN category ON product.categoryId = category.categoryId " +
+				"WHERE userid = ? AND productName LIKE ?";
+	
+	String s2 = "SELECT productId, productName, categoryName, productImageURL, productPrice " +
+				"FROM product JOIN category ON product.categoryId = category.categoryId " +
+				"WHERE categoryName = ? AND productName LIKE ?";
+	String uid = (String)session.getAttribute("authenticatedUser");
+	PreparedStatement pstmt1 = con.prepareStatement(s);
+	PreparedStatement pstmt2 = con.prepareStatement(s2);
+	pstmt1.setString(1, uid);
+	pstmt1.setString(2,"%"+name+"%");
+
+	ResultSet rst1 = pstmt1.executeQuery();
+	%>	
+	<br>
+		<h3 style="text-align:center;font-family: Futura;">Similar products</h3>
+		<table class="styled-table"; border="1" style="border-collapse:collapse;margin-left:auto;margin-right:auto;font-family: Futura;">
+		<thead>
+			<tr>
+				<th></th>
+				<th style="text-align:center;">Product Name</th>
+				<th style="text-align:center;">Product Picture</th>
+				<th style="text-align:center;">Category</th>
+				<th style="text-align:center;">Price</th>
+			</tr>
+		</thead>
+	<%
+	while(rst1.next()){
+		pstmt2.setString(1, rst1.getString("categoryName"));
+		pstmt2.setString(2,"%"+name+"%");
+		ResultSet rst2 = pstmt2.executeQuery();
+		while(rst2.next()){
+			String prodName1 = rst2.getString("productName");
+			String prodNameLink1 = "";
+			if(prodName1.contains(" ")) {
+				prodNameLink1 = prodName1.replaceAll(" ","%20");
+			}else {
+				prodNameLink1 = prodName1;
+			}
+			String addCart1 = "addcart.jsp?id=" + rst2.getInt("productId") + "&name=" + prodNameLink1 + "&price=" + rst2.getDouble("productPrice");
+			String prod1 = "product.jsp?id=" + rst2.getInt("productId");
+		
+			%>	
+			<tr>
+				<td style="text-align:center;"><a href=<%=addCart1%>>Add To Cart</a></td>
+				<td style="text-align:center;"><a href=<%=prod1%>><%=rst2.getString("productName")%></a></td>
+				<td style="text-align:center;"><%=rst2.getString("categoryName")%></td>
+				<td style="text-align:center;"><img src=<%=rst2.getString("productImageURL")%> alt = "Product Image" width="100" height="70"></td>
+				<td style="text-align:center;"><%=currFormat.format(rst2.getDouble("productPrice"))%></td>
+			</tr>
+			<%
+		}
+	}
+	%>
+	</table>
+	<%
 }else{
 %>
 <table class="styled-table"; border="1" style="border-collapse:collapse;margin-left:auto;margin-right:auto;font-family: Futura;">
