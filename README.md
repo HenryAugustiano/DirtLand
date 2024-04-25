@@ -1,7 +1,13 @@
 # DirtLand
 
+![](imgs/logo.png)
 We are selling dirt from countries all over the world.
 
+
+## View Report and Documentation
+[Report](report.pdf)
+
+------
 <h3> Instruction to load the database using Docker </h3>
 <ol>
 <li> remove line 1-5 from orderdb_sql.ddl</li>
